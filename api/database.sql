@@ -42,7 +42,7 @@ CREATE TABLE transations (
     INDEX idx_user (user_id),
     INDEX idx_status (status),
     INDEX idx_created (created_at)
-    )ENGINE=InnoDB DEFAULT CHARSET=urf8mb4;
+    )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Offers Table
 CREATE TABLE offers(
