@@ -20,7 +20,11 @@ try{
     exit;
 }
 
-function generateReferralCode($pdo, $user_id){
+function generateReferralCode($length=6){
+    return strtoupper(substr(md5(uniqid(mt_rand(), true)), 0, $length));
+}
+
+function getCurrentBalance($pdo, $user_id){
     $stmt=$pdo->prepare("SELECT balance FROM users WHERE id=?");
     $stmt->execute([$user_id]);
     $result=$stmt->fetch();
