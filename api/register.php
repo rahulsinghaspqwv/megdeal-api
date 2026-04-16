@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
             $stmt = $pdo->prepare("UPDATE users SET balance = balance + ? WHERE ID = ?");
             $stmt->execute([$bonus, $referred_by]);
             // Record referral transaction
-            $stmt->$pdo->prepare("INSERT INTO transactions (user_id, type, description, amount, status) VALUES (?, 'referral', ?, ?, 'completed')");
+            $stmt=$pdo->prepare("INSERT INTO transactions (user_id, type, description, amount, status) VALUES (?, 'referral', ?, ?, 'completed')");
             $stmt->execute([$referred_by, "Referral bonus for user $mobile", $bonus]);
         }
         echo json_encode(['success' => true,'message'=>'Registration successful', 'user_id'=>$user_id, 'referral_code'=>$referral_code]);
