@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
         echo json_encode(['success'=>true, 'message'=> 'Offer started successfully', 'transaction_id'=>$transaction_id, 'offer_id'=>$offer_id, 'user_id'=>$user_id]);
     } catch(PDOException $e) {
         error_log("Start offer error: ".$e->getMessage());
-        echo json_encode(['success'=>false,'message'=>'Failed to start offer']);
+        echo json_encode(['success'=>false,'message'=>$e->getMessage()]);
     }
 } else {
     echo json_encode(['success'=>false, 'message'=>'Invalid request method']);

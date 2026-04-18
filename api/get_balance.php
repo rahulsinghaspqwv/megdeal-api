@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD']==='GET'){
         GROUP BY user_id) 
         week ON u.id=week.user_id
         LEFT JOIN(
-        SELECT user_id, CALESCE(SUM(amount), 0) as month_earning
+        SELECT user_id, COALESCE(SUM(amount), 0) as month_earning
         FROM transactions
         WHERE user_id=? AND type='earning' AND MONTH(created_at)=MONTH(NOW())
         GROUP BY user_id)
@@ -44,14 +44,15 @@ if ($_SERVER['REQUEST_METHOD']==='GET'){
                 'today_earning'=> floatval($result['today_earning']),
                 'week_earning'=>floatval($result['week_earning']),
                 'month_earning'=>floatval($result['month_earning']),
-                'total_earned'=>floatval($result['total_withdrawn'])
+                'total_earned'=>floatval($result['total_earned']),
+                'total_withdrawn'=>floatval($result['total_withdrawn'])
             ]);
         } else {
             echo json_encode(['success'=>false,'message'=>'User not found']);
         }
  
     } catch (PDOException $e) {
-        error_log("Get balance error: ").$e->getMessage();
+        error_log("Get balance error: ".$e->getMessage());
         echo json_encode(['success'=>false,'message'=>'Failed to fetch balance']);
     }
 }

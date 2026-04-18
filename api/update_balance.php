@@ -1,5 +1,7 @@
-<?
+<?php
 require_once 'config.php';
+ini_set('display_errors', 0);
+error_reporting(0);
 if ($_SERVER['REQUEST_METHOD']==='POST'){
     $data=json_decode(file_get_contents('php://input'), true);
     if (!isset($data['user_id'])||!isset($data['amount'])){
@@ -54,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
     } catch (Exception $e){
         $pdo->rollBack();
         error_log("Update balance error: ".$e->getMessage());
-        echo json_encode(['success'=>false,'message'=>'Failed to update balance']);
+        echo json_encode(['success'=>false,'message'=>'Database Error']);
     }
 }
 ?>
